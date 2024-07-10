@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    script_hand = choose_random_hand()
+    script_hand = Hand(args.hand)
     print(f"You chose: {args.hand}")
     print(f"The script chose: {script_hand.name}")
     print(script_hand.play(args.hand))
