@@ -4,7 +4,7 @@ from modules.hand import Hand
 
 
 def choose_random_hand():
-    return Hand(random.choice(["paper", "scissors", "rock"]))
+    return random.choice(["paper", "scissors", "rock"])
 
 
 if __name__ == "__main__":
@@ -15,7 +15,8 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    script_hand = Hand(args.hand)
+    your_hand = Hand(args.hand)
+    script_hand = choose_random_hand()
     print(f"You chose: {args.hand}")
-    print(f"The script chose: {script_hand.name}")
-    print(script_hand.play(args.hand))
+    print(f"The script chose: {script_hand}")
+    print(your_hand.play(script_hand))
