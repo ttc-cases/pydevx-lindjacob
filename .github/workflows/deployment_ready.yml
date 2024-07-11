@@ -1,7 +1,7 @@
 name: Development Branch Ready
 
 on:
-workflow_dispatch:
+  workflow_dispatch:
   push:
     tags:
       - 'ready'
