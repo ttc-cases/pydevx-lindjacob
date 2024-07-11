@@ -12,19 +12,19 @@ jobs:
 
     steps:
     - name: Checkout the code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Git
       run: |
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
 
-    - name: Rebase branch onto main
+    - name: Rebase branch onto HEAD
       run: |
-        git checkout main
-        git pull origin main
+        git checkout HEAD^
+        git pull
         git checkout ${{ github.ref }}
-        git rebase main
+        git rebase HEAD^
         git push --force-with-lease
 
     - name: Set up Python
