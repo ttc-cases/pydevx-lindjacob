@@ -1,9 +1,10 @@
 name: Development Branch Ready
 
 on:
+workflow_dispatch:
   push:
     tags:
-      - 'READY'
+      - 'ready'
 
 jobs:
   rebase-and-test:
