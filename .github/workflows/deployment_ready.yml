@@ -9,6 +9,9 @@ on:
 jobs:
   rebase-and-test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: .github/scripts
 
     steps:
     - name: Checkout the code
@@ -19,13 +22,8 @@ jobs:
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
 
-    - name: Rebase branch onto HEAD
-      run: |
-        git checkout HEAD^
-        git pull
-        git checkout ${{ github.ref }}
-        git rebase HEAD^
-        git push --force-with-lease
+    - name: Rebase branch onto main
+      run: ./rebase.sh
 
     - name: Set up Python
       uses: actions/setup-python@v5
