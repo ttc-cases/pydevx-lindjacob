@@ -23,7 +23,9 @@ jobs:
         git config user.email "github-actions@github.com"
 
     - name: Rebase branch onto main
-      run: ./rebase.sh
+      run: |
+        chmod +x .github/scripts/rebase.sh
+        ./rebase.sh
 
     - name: Set up Python
       uses: actions/setup-python@v5
