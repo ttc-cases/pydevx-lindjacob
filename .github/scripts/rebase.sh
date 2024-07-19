@@ -47,20 +47,4 @@ git pull
 echo 
 echo "🔝 Rebase..."
 git rebase main
-echo 
-echo "❗️ If everything is okay, confirm force push $branch to remote:"
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes ) git push --force; break;;
-        No ) exit;;
-    esac
-done
-git checkout main
-echo 
-echo "🚮 Delete branch $branch locally ?"
-select yn in "Yes" "No"; do
-    case $yn in
-        Yes ) git branch -d $branch; break;;
-        No ) exit;;
-    esac
-done
+git push --force-with-lease
