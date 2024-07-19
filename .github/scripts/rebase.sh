@@ -28,6 +28,7 @@ fi
 
 if ! [[ -z "$(git status --porcelain)" ]]; then
   echo "Working directory is not clean. Stash your changes first."
+  git status
   exit 1
 fi
 

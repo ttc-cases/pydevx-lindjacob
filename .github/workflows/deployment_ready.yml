@@ -24,7 +24,6 @@ jobs:
 
     - name: Rebase branch onto main
       run: |
-        ls
         chmod +x rebase.sh
         ./rebase.sh
 
