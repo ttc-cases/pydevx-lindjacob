@@ -19,13 +19,12 @@ jobs:
 
     - name: Set up Git
       run: |
-        git status
         git config user.name "github-actions"
         git config user.email "github-actions@github.com"
+        git config core.fileMode false
 
     - name: Rebase branch onto main
       run: |
-        git status
         chmod +x rebase.sh
         git status
         ./rebase.sh
