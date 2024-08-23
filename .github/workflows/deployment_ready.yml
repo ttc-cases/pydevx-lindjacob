@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - 'ready'
+      - "ready"
 
 jobs:
   rebase-and-test:
@@ -14,37 +14,45 @@ jobs:
         working-directory: .github/scripts
 
     steps:
-    - name: Checkout the code
-      uses: actions/checkout@v4
+      - name: Checkout the code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
 
-    - name: Set up Git
-      run: |
-        git config user.name "github-actions"
-        git config user.email "github-actions@github.com"
-        git config core.fileMode false
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git config core.fileMode false
 
-    - name: Rebase branch onto main
-      run: |
-        chmod +x rebase.sh
-        git status
-        ./rebase.sh
+      - name: Automatic Rebase
+        uses: cirrus-actions/rebase@1.8
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.x'
+    # - name: Rebase branch to main
+    #   run: |
+    #     chmod +x rebase.sh
+    #     git status
+    #     ./rebase.sh
 
-    - name: Install dependencies
-      run: |
-        pipenv install
+    # - name: Set up Python
+    #   uses: actions/setup-python@v5
+    #   with:
+    #     python-version: '3.x'
 
-    - name: Run Unit Tests
-      run: |
-        pipenv run python tests/test_hand.py
+    # - name: Install dependencies
+    #   run: |
+    #     pipenv install
 
-    - name: Merge to main if tests pass
-      if: success()
-      run: |
-        git checkout main
-        git merge ${{ github.ref }}
-        git push origin main
+    # - name: Run Unit Tests
+    #   run: |
+    #     pipenv run python tests/test_hand.py
+
+    # - name: Merge to main if tests pass
+    #   if: success()
+    #   run: |
+    #     git checkout main
+    #     git merge ${{ github.ref }}
+    #     git push origin main
