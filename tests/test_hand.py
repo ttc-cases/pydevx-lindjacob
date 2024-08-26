@@ -1,6 +1,7 @@
 import unittest
 import sys
 import os
+from unittest.mock import patch
 
 # Add the src directory to the Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'src'))
@@ -31,6 +32,18 @@ class TestHand(unittest.TestCase):
         outcome = self.rock.play("rock")
         self.assertEqual(outcome, "It's a tie Both rock and rock played.")
 
+
+class TestHandMock(unittest.TestCase):
+
+    @patch('modules.hand.Hand.play')
+    def test_mock_play(self, mock_play):
+        mock_play.return_value = "mocked result"
+
+        hand = Hand('rock')
+        result = hand.play('scissors')
+
+        mock_play.assert_called_once_with('scissors')
+        self.assertEqual(result, "mocked result")
 
 if __name__ == '__main__':
     unittest.main()
